@@ -1,13 +1,67 @@
 # Created by: Elias Mote and Ryan Moeller
 
+from sympy import *
+
+# Get input from the user
 print("Problem 1:")
 print("Please input n")
-n = raw_input("--> ")
+n = int(raw_input("--> "))
 
 # Delta function
-delta = [[1,4,7,10,37,15,18,21,24,26,29,32,35,15,18,21,24,26,29,32,35,37,15,18,21,26,29,32,35,37,15,18,21,24,26,29,32,37],
-		 [2,5,8,11,13,16,19,22,37,27,30,33,36,16,19,22,37,27,30,33,36,13,16,19,22,27,30,33,36,13,16,19,22,37,27,30,33,37],
-		 [3,6,9,12,14,17,20,23,25,28,31,34,37,17,20,23,25,28,31,34,37,14,17,20,23,28,31,34,37,14,17,20,23,25,28,31,34,37]]
+delta = [
+			# Start state
+			[1,2,3],    # empty
+
+			# Single letter states (a - c)
+			[4,5,6],    # a
+			[7,8,9],    # b
+			[10,11,12], # c
+
+			# Double letter states (aa - cc)
+			[37,13,14], # aa
+			[15,16,17], # ab
+			[18,19,20], # ac
+			[21,22,23], # ba
+			[24,37,25], # bb
+			[26,27,28], # bc
+			[29,30,31], # ca
+			[32,33,34], # cb
+			[35,36,37], # cc
+
+			# Triple letter states (aab - ccb)
+			# axy states
+			[37,37,17], # aab
+			[37,19,37], # aac
+			[37,37,23], # aba
+			[37,37,25], # abb
+			[26,27,28], # abc
+			[37,30,37], # aca
+			[32,33,34], # acb
+			[37,36,37], # acc
+
+			# bxy states
+			[37,37,14], # baa
+			[37,37,17], # bab
+			[18,19,20], # bac
+			[37,37,23], # bba
+			[26,37,37], # bbc
+			[29,30,31], # bca
+			[32,37,37], # bcb
+			[35,37,37], # bcc
+
+			# cxy states
+			[37,13,37], # caa
+			[15,16,17], # cab
+			[37,19,37], # cac
+			[21,22,23], # cba
+			[24,37,37], # cbb
+			[26,37,37], # cbc
+			[37,30,37], # cca
+			[32,37,37], # ccb
+
+			# Failure state
+			[37,37,37], # fail state
+		]
 
 # DFA
 # Starting state 0: ""
@@ -19,10 +73,27 @@ delta = [[1,4,7,10,37,15,18,21,24,26,29,32,35,15,18,21,24,26,29,32,35,37,15,18,2
 # m is how many states we have
 m = 38
 
-# The 38 x 38 matrix
-matrix = [[0 for x in range(m)] for y in range(m)]
+# Transition matrix A
+A = [[0 for x in range(m)] for y in range(m)]
 
 # If there is a transition in the delta function, increment the value in the matrix
 for j in range(38):
 	for k in range(3):
-		matrix[j][delta[j][k]] += 1
+		A[j][delta[j][k]] += 1
+A = Matrix(A)
+
+# Create matrix u
+u = [[1]]
+for i in range(37):
+	u[0].append(0)
+u = Matrix(u)
+
+# Create matrix v
+v = [1 for x in range(m)]
+for i in range(13):
+	v[i] = 0
+v[37] = 0
+v = Matrix(v)
+
+# Print our result
+print((u*(A**n)*v)[0])
