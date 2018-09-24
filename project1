@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/sh
 # Created by: Elias Mote and Ryan Moeller
 
 choice=0
