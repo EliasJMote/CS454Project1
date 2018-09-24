@@ -1,6 +1,9 @@
 #! /bin/sh
 # Created by: Elias Mote and Ryan Moeller
 
+. problem1/.venv27/bin/activate
+eval `opam env --set-switch`
+
 choice=0
 while [ $choice != 3 ]
 do
@@ -27,3 +30,5 @@ do
 		echo 'That choice is not available.'
 	fi
 done
+
+deactivate
