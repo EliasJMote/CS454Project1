@@ -1,6 +1,12 @@
 # CS454 Project 1
 Created by: Elias Mote and Ryan Moeller
 
+## Quick Start
+To install dependencies, build, and run the project:
+```
+make run
+```
+
 ## Dependencies
 Requirements for problem 1:
 - Python 2.7 with the following packages:
@@ -17,9 +23,3 @@ so the bare minimum dependencies are:
 
 - Python 2.7 and pip: https://pip.pypa.io/en/stable/installing/
 - OCaml and OPAM 2: https://opam.ocaml.org/doc/Install.html
-
-## Quick Start
-To install dependencies, build, and run the project:
-```
-make run
-```
