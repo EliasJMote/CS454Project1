@@ -8,11 +8,18 @@ do
 	read choice
 	if [ $choice == 1 ]
 	then
-		python project_1_prob_1.py
+		cd problem1
+		python ./project_1_prob_1.py
+		cd -
 	elif [ $choice == 2 ]
 	then
-		# TODO: Insert code to run project 1 problem 2
-		echo 'Run project 1 problem 2'
+		cd problem2
+		echo -n "Enter a positive integer: "
+		read k
+		echo -n "Enter a set of digits (0-9, space separated, one line): "
+		read digits
+		dune exec bin/main.exe -- smallest-multiple $k $digits
+		cd -
 	elif [ $choice == 3 ]
 	then
 		break
