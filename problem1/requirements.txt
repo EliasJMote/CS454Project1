@@ -1,10 +1,2 @@
-Created by: Elias Mote and Ryan Moeller
-
-Requirements for problem 1:
-- Python 2.7 or higher
-- sympy (e.g. pip install sympy)
-
-Requirements for problem 2:
-
-To run project 1:
-bash project_1.sh
+mpmath==1.0.0
+sympy==1.3
