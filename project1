@@ -1,29 +1,39 @@
 #! /bin/sh
 # Created by: Elias Mote and Ryan Moeller
 
-. problem1/.venv27/bin/activate
-eval `opam env --set-switch`
+VENV=problem1/.venv27
+[ -d "${VENV}" ] || {
+	echo 'Please run "make" first'
+	exit
+}
+. ${VENV}/bin/activate
 
-choice=0
-while [ $choice != 3 ]
+eval `opam env --set-switch`
+which dune 2>/dev/null >/dev/null || {
+	echo 'Please use "make run" or install dune with opam'
+	exit
+}
+
+choice="0"
+while [ "$choice" != "3" ]
 do
 	echo 'Please input the problem number (1 or 2) or 3 to quit.'
 	read choice
-	if [ $choice == 1 ]
+	if [ "$choice" = "1" ]
 	then
 		cd problem1
 		python ./project_1_prob_1.py
-		cd -
-	elif [ $choice == 2 ]
+		cd - >/dev/null
+	elif [ "$choice" = "2" ]
 	then
 		cd problem2
-		echo -n "Enter a positive integer: "
+		/bin/echo -n "Enter a positive integer: "
 		read k
-		echo -n "Enter a set of digits (0-9, space separated, one line): "
+		/bin/echo -n "Enter a set of digits (0-9, space separated, one line): "
 		read digits
 		dune exec bin/main.exe -- smallest-multiple $k $digits
-		cd -
-	elif [ $choice == 3 ]
+		cd - >/dev/null
+	elif [ "$choice" = "3" ]
 	then
 		break
 	else
